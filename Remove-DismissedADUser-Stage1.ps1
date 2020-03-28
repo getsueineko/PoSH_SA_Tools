@@ -50,7 +50,7 @@ function Send-NotifyMessage () {
     $to = $Leader + "@contoso.com"
     $subject = "Почтовый ящик уволенного сотрудника ($InitialsUser)"
     $body = "<BODY style=""font-size: 11pt; font-family: Arial""><P>"
-    $body += "$salutation $InitialsLeader!<br>"
+    $body += "$salutation $InitialsLeaderFul!<br>"
     $body += " <br>"    
     $body += "В соответствии с регламентом по работе с ящиками электронной почты уволенных сотрудников,<br>"
     $body += "к Вашей учетной записи присоединен почтовый ящик уволенного сотрудника $InitialsUser сроком на 3 месяца.<br>"
@@ -76,7 +76,7 @@ $InitialsUser = $InitialsUser[0] + " " + ($InitialsUser[1])[0] + "." + " " + ($I
 
 # Выделяем ИО руководителя
 $InitialsLeader = @((Get-ADUser $Leader -Properties Name | ForEach-Object { $_.Name }).Split(" "))
-$InitialsLeader = $InitialsLeader[1] + " " + $InitialsLeader[2]
+$InitialsLeaderFull = $InitialsLeader[1] + " " + $InitialsLeader[2]
 
 # Определяем пол руководителя
 if ($InitialsLeader[2] -like "*овна" -or $InitialsLeader[2] -like "*евна" -or $InitialsLeader[2] -like "*ична") {
