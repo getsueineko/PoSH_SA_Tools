@@ -180,7 +180,8 @@ if ($approveRemove -eq 1) {
     Get-ADOrganizationalUnit –Identity $targetOU -Properties ProtectedFromAccidentalDeletion | 
     Set-ADOrganizationalUnit -ProtectedFromAccidentalDeletion $False 
     # Удаляем учетку
-    Remove-ADUser -Identity $SamAccountName -Confirm:$False
+    # Используется конструкция с Remove-ADObject, чтобы решить проблему с удалением учеток содержащих другие объекты
+    Get-ADUser -Identity $SamAccountName | Remove-ADObject -Recursive -Confirm:$false
     # Восстанавливаем защиту контейнера
     Get-ADOrganizationalUnit –Identity $targetOU -Properties ProtectedFromAccidentalDeletion | 
     Set-ADOrganizationalUnit -ProtectedFromAccidentalDeletion $True
